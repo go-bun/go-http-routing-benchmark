@@ -21,11 +21,12 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/bmizerany/pat"
+	"github.com/dimfeld/httptreemux"
 	"github.com/go-playground/lars"
+	"github.com/uptrace/bunrouter"
 
 	// "github.com/daryl/zeus"
 	cloudykitrouter "github.com/cloudykit/router"
-	"github.com/dimfeld/httptreemux"
 	"github.com/emicklei/go-restful"
 	"github.com/gin-gonic/gin"
 	"github.com/go-chi/chi"
@@ -150,10 +151,12 @@ func aeroHandlerWrite(ctx aero.Context) error {
 	io.WriteString(ctx.Response().Internal(), ctx.Get("name"))
 	return nil
 }
+
 func aeroHandlerTest(ctx aero.Context) error {
 	io.WriteString(ctx.Response().Internal(), ctx.Request().Path())
 	return nil
 }
+
 func loadAero(routes []route) http.Handler {
 	var h aero.Handler = aeroHandler
 	if loadTestHandler {
@@ -178,6 +181,7 @@ func loadAero(routes []route) http.Handler {
 	}
 	return app
 }
+
 func loadAeroSingle(method, path string, h aero.Handler) http.Handler {
 	app := aero.New()
 	switch method {
@@ -929,12 +933,26 @@ func loadHttpRouterSingle(method, path string, handle httprouter.Handle) http.Ha
 // httpTreeMux
 func httpTreeMuxHandler(_ http.ResponseWriter, _ *http.Request, _ map[string]string) {}
 
+func bunrouterHandler(_ http.ResponseWriter, _ bunrouter.Request) error {
+	return nil
+}
+
 func httpTreeMuxHandlerWrite(w http.ResponseWriter, _ *http.Request, vars map[string]string) {
 	io.WriteString(w, vars["name"])
 }
 
+func bunrouterHandlerWrite(w http.ResponseWriter, r bunrouter.Request) error {
+	io.WriteString(w, r.Param("name"))
+	return nil
+}
+
 func httpTreeMuxHandlerTest(w http.ResponseWriter, r *http.Request, _ map[string]string) {
 	io.WriteString(w, r.RequestURI)
+}
+
+func bunrouterHandlerTest(w http.ResponseWriter, r bunrouter.Request) error {
+	io.WriteString(w, r.RequestURI)
+	return nil
 }
 
 func loadHttpTreeMux(routes []route) http.Handler {
@@ -950,8 +968,27 @@ func loadHttpTreeMux(routes []route) http.Handler {
 	return router
 }
 
+func loadBunrouter(routes []route) http.Handler {
+	h := bunrouterHandler
+	if loadTestHandler {
+		h = bunrouterHandlerTest
+	}
+
+	router := bunrouter.New()
+	for _, route := range routes {
+		router.Handle(route.method, route.path, h)
+	}
+	return router
+}
+
 func loadHttpTreeMuxSingle(method, path string, handler httptreemux.HandlerFunc) http.Handler {
 	router := httptreemux.New()
+	router.Handle(method, path, handler)
+	return router
+}
+
+func loadBunrouterSingle(method, path string, handler bunrouter.HandlerFunc) http.Handler {
+	router := bunrouter.New()
 	router.Handle(method, path, handler)
 	return router
 }
@@ -1113,7 +1150,7 @@ func macaronHandlerTest(c *macaron.Context) string {
 }
 
 func loadMacaron(routes []route) http.Handler {
-	var h = []macaron.Handler{macaronHandler}
+	h := []macaron.Handler{macaronHandler}
 	if loadTestHandler {
 		h[0] = macaronHandlerTest
 	}

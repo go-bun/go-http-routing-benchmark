@@ -191,6 +191,7 @@ var (
 	staticGowwwRouter     http.Handler
 	staticHttpRouter      http.Handler
 	staticHttpTreeMux     http.Handler
+	staticBunrouter       http.Handler
 	staticKocha           http.Handler
 	staticLARS            http.Handler
 	staticMacaron         http.Handler
@@ -275,6 +276,9 @@ func init() {
 	calcMem("HttpTreeMux", func() {
 		staticHttpTreeMux = loadHttpTreeMux(staticRoutes)
 	})
+	calcMem("Bunrouter", func() {
+		staticBunrouter = loadBunrouter(staticRoutes)
+	})
 	calcMem("Kocha", func() {
 		staticKocha = loadKocha(staticRoutes)
 	})
@@ -326,81 +330,111 @@ func init() {
 func BenchmarkAce_StaticAll(b *testing.B) {
 	benchRoutes(b, staticAce, staticRoutes)
 }
+
 func BenchmarkAero_StaticAll(b *testing.B) {
 	benchRoutes(b, staticAero, staticRoutes)
 }
+
 func BenchmarkHttpServeMux_StaticAll(b *testing.B) {
 	benchRoutes(b, staticHttpServeMux, staticRoutes)
 }
+
 func BenchmarkBeego_StaticAll(b *testing.B) {
 	benchRoutes(b, staticBeego, staticRoutes)
 }
+
 func BenchmarkBear_StaticAll(b *testing.B) {
 	benchRoutes(b, staticBear, staticRoutes)
 }
+
 func BenchmarkBone_StaticAll(b *testing.B) {
 	benchRoutes(b, staticBone, staticRoutes)
 }
+
 func BenchmarkChi_StaticAll(b *testing.B) {
 	benchRoutes(b, staticChi, staticRoutes)
 }
+
 func BenchmarkCloudyKitRouter_StaticAll(b *testing.B) {
 	benchRoutes(b, staticCloudyKitRouter, staticRoutes)
 }
+
 func BenchmarkDenco_StaticAll(b *testing.B) {
 	benchRoutes(b, staticDenco, staticRoutes)
 }
+
 func BenchmarkEcho_StaticAll(b *testing.B) {
 	benchRoutes(b, staticEcho, staticRoutes)
 }
+
 func BenchmarkGin_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGin, staticRoutes)
 }
+
 func BenchmarkGocraftWeb_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGocraftWeb, staticRoutes)
 }
+
 func BenchmarkGoji_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGoji, staticRoutes)
 }
+
 func BenchmarkGojiv2_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGojiv2, staticRoutes)
 }
+
 func BenchmarkGoJsonRest_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGoJsonRest, staticRoutes)
 }
+
 func BenchmarkGoRestful_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGoRestful, staticRoutes)
 }
+
 func BenchmarkGorillaMux_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGorillaMux, staticRoutes)
 }
+
 func BenchmarkGowwwRouter_StaticAll(b *testing.B) {
 	benchRoutes(b, staticGowwwRouter, staticRoutes)
 }
+
 func BenchmarkHttpRouter_StaticAll(b *testing.B) {
 	benchRoutes(b, staticHttpRouter, staticRoutes)
 }
+
 func BenchmarkHttpTreeMux_StaticAll(b *testing.B) {
 	benchRoutes(b, staticHttpRouter, staticRoutes)
 }
+
+func BenchmarkBunrouter_StaticAll(b *testing.B) {
+	benchRoutes(b, staticBunrouter, staticRoutes)
+}
+
 func BenchmarkKocha_StaticAll(b *testing.B) {
 	benchRoutes(b, staticKocha, staticRoutes)
 }
+
 func BenchmarkLARS_StaticAll(b *testing.B) {
 	benchRoutes(b, staticLARS, staticRoutes)
 }
+
 func BenchmarkMacaron_StaticAll(b *testing.B) {
 	benchRoutes(b, staticMacaron, staticRoutes)
 }
+
 func BenchmarkMartini_StaticAll(b *testing.B) {
 	benchRoutes(b, staticMartini, staticRoutes)
 }
+
 func BenchmarkPat_StaticAll(b *testing.B) {
 	benchRoutes(b, staticPat, staticRoutes)
 }
+
 func BenchmarkPossum_StaticAll(b *testing.B) {
 	benchRoutes(b, staticPossum, staticRoutes)
 }
+
 func BenchmarkR2router_StaticAll(b *testing.B) {
 	benchRoutes(b, staticR2router, staticRoutes)
 }
@@ -411,15 +445,19 @@ func BenchmarkR2router_StaticAll(b *testing.B) {
 func BenchmarkRivet_StaticAll(b *testing.B) {
 	benchRoutes(b, staticRivet, staticRoutes)
 }
+
 func BenchmarkTango_StaticAll(b *testing.B) {
 	benchRoutes(b, staticTango, staticRoutes)
 }
+
 func BenchmarkTigerTonic_StaticAll(b *testing.B) {
 	benchRoutes(b, staticTigerTonic, staticRoutes)
 }
+
 func BenchmarkTraffic_StaticAll(b *testing.B) {
 	benchRoutes(b, staticTraffic, staticRoutes)
 }
+
 func BenchmarkVulcan_StaticAll(b *testing.B) {
 	benchRoutes(b, staticVulcan, staticRoutes)
 }

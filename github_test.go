@@ -293,6 +293,7 @@ var (
 	githubGowwwRouter     http.Handler
 	githubHttpRouter      http.Handler
 	githubHttpTreeMux     http.Handler
+	githubBunrouter       http.Handler
 	githubKocha           http.Handler
 	githubLARS            http.Handler
 	githubMacaron         http.Handler
@@ -369,6 +370,9 @@ func init() {
 	calcMem("HttpTreeMux", func() {
 		githubHttpTreeMux = loadHttpTreeMux(githubAPI)
 	})
+	calcMem("Bunrouter", func() {
+		githubBunrouter = loadBunrouter(githubAPI)
+	})
 	calcMem("Kocha", func() {
 		githubKocha = loadKocha(githubAPI)
 	})
@@ -420,102 +424,132 @@ func BenchmarkAce_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubAce, req)
 }
+
 func BenchmarkAero_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubAero, req)
 }
+
 func BenchmarkBear_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubBear, req)
 }
+
 func BenchmarkBeego_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubBeego, req)
 }
+
 func BenchmarkBone_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubBone, req)
 }
+
 func BenchmarkCloudyKitRouter_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubCloudyKitRouter, req)
 }
+
 func BenchmarkChi_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubChi, req)
 }
+
 func BenchmarkDenco_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubDenco, req)
 }
+
 func BenchmarkEcho_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubEcho, req)
 }
+
 func BenchmarkGin_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGin, req)
 }
+
 func BenchmarkGocraftWeb_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGocraftWeb, req)
 }
+
 func BenchmarkGoji_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGoji, req)
 }
+
 func BenchmarkGojiv2_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGojiv2, req)
 }
+
 func BenchmarkGoRestful_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGoRestful, req)
 }
+
 func BenchmarkGoJsonRest_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGoJsonRest, req)
 }
+
 func BenchmarkGorillaMux_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGorillaMux, req)
 }
+
 func BenchmarkGowwwRouter_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubGowwwRouter, req)
 }
+
 func BenchmarkHttpRouter_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubHttpRouter, req)
 }
+
 func BenchmarkHttpTreeMux_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubHttpTreeMux, req)
 }
+
+func BenchmarkBunrouter_GithubStatic(b *testing.B) {
+	req, _ := http.NewRequest("GET", "/user/repos", nil)
+	benchRequest(b, githubBunrouter, req)
+}
+
 func BenchmarkKocha_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubKocha, req)
 }
+
 func BenchmarkLARS_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubLARS, req)
 }
+
 func BenchmarkMacaron_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubMacaron, req)
 }
+
 func BenchmarkMartini_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubMartini, req)
 }
+
 func BenchmarkPat_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubPat, req)
 }
+
 func BenchmarkPossum_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubPossum, req)
 }
+
 func BenchmarkR2router_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubR2router, req)
@@ -529,18 +563,22 @@ func BenchmarkRivet_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubRivet, req)
 }
+
 func BenchmarkTango_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubTango, req)
 }
+
 func BenchmarkTigerTonic_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubTigerTonic, req)
 }
+
 func BenchmarkTraffic_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubTraffic, req)
 }
+
 func BenchmarkVulcan_GithubStatic(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/user/repos", nil)
 	benchRequest(b, githubVulcan, req)
@@ -556,102 +594,132 @@ func BenchmarkAce_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubAce, req)
 }
+
 func BenchmarkAero_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubAero, req)
 }
+
 func BenchmarkBear_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubBear, req)
 }
+
 func BenchmarkBeego_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubBeego, req)
 }
+
 func BenchmarkBone_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubBone, req)
 }
+
 func BenchmarkChi_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubChi, req)
 }
+
 func BenchmarkCloudyKitRouter_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubCloudyKitRouter, req)
 }
+
 func BenchmarkDenco_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubDenco, req)
 }
+
 func BenchmarkEcho_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubEcho, req)
 }
+
 func BenchmarkGin_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGin, req)
 }
+
 func BenchmarkGocraftWeb_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGocraftWeb, req)
 }
+
 func BenchmarkGoji_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGoji, req)
 }
+
 func BenchmarkGojiv2_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGojiv2, req)
 }
+
 func BenchmarkGoJsonRest_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGoJsonRest, req)
 }
+
 func BenchmarkGoRestful_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGoRestful, req)
 }
+
 func BenchmarkGorillaMux_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGorillaMux, req)
 }
+
 func BenchmarkGowwwRouter_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubGowwwRouter, req)
 }
+
 func BenchmarkHttpRouter_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubHttpRouter, req)
 }
+
 func BenchmarkHttpTreeMux_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubHttpTreeMux, req)
 }
+
+func BenchmarkBunrouter_GithubParam(b *testing.B) {
+	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
+	benchRequest(b, githubBunrouter, req)
+}
+
 func BenchmarkKocha_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubKocha, req)
 }
+
 func BenchmarkLARS_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubLARS, req)
 }
+
 func BenchmarkMacaron_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubMacaron, req)
 }
+
 func BenchmarkMartini_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubMartini, req)
 }
+
 func BenchmarkPat_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubPat, req)
 }
+
 func BenchmarkPossum_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubPossum, req)
 }
+
 func BenchmarkR2router_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubR2router, req)
@@ -665,18 +733,22 @@ func BenchmarkRivet_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubRivet, req)
 }
+
 func BenchmarkTango_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubTango, req)
 }
+
 func BenchmarkTigerTonic_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubTigerTonic, req)
 }
+
 func BenchmarkTraffic_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubTraffic, req)
 }
+
 func BenchmarkVulcan_GithubParam(b *testing.B) {
 	req, _ := http.NewRequest("GET", "/repos/julienschmidt/httprouter/stargazers", nil)
 	benchRequest(b, githubVulcan, req)
@@ -691,78 +763,107 @@ func BenchmarkVulcan_GithubParam(b *testing.B) {
 func BenchmarkAce_GithubAll(b *testing.B) {
 	benchRoutes(b, githubAce, githubAPI)
 }
+
 func BenchmarkAero_GithubAll(b *testing.B) {
 	benchRoutes(b, githubAero, githubAPI)
 }
+
 func BenchmarkBear_GithubAll(b *testing.B) {
 	benchRoutes(b, githubBear, githubAPI)
 }
+
 func BenchmarkBeego_GithubAll(b *testing.B) {
 	benchRoutes(b, githubBeego, githubAPI)
 }
+
 func BenchmarkBone_GithubAll(b *testing.B) {
 	benchRoutes(b, githubBone, githubAPI)
 }
+
 func BenchmarkChi_GithubAll(b *testing.B) {
 	benchRoutes(b, githubChi, githubAPI)
 }
+
 func BenchmarkCloudyKitRouter_GithubAll(b *testing.B) {
 	benchRoutes(b, githubCloudyKitRouter, githubAPI)
 }
+
 func BenchmarkDenco_GithubAll(b *testing.B) {
 	benchRoutes(b, githubDenco, githubAPI)
 }
+
 func BenchmarkEcho_GithubAll(b *testing.B) {
 	benchRoutes(b, githubEcho, githubAPI)
 }
+
 func BenchmarkGin_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGin, githubAPI)
 }
+
 func BenchmarkGocraftWeb_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGocraftWeb, githubAPI)
 }
+
 func BenchmarkGoji_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGoji, githubAPI)
 }
+
 func BenchmarkGojiv2_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGojiv2, githubAPI)
 }
+
 func BenchmarkGoJsonRest_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGoJsonRest, githubAPI)
 }
+
 func BenchmarkGoRestful_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGoRestful, githubAPI)
 }
+
 func BenchmarkGorillaMux_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGorillaMux, githubAPI)
 }
+
 func BenchmarkGowwwRouter_GithubAll(b *testing.B) {
 	benchRoutes(b, githubGowwwRouter, githubAPI)
 }
+
 func BenchmarkHttpRouter_GithubAll(b *testing.B) {
 	benchRoutes(b, githubHttpRouter, githubAPI)
 }
+
 func BenchmarkHttpTreeMux_GithubAll(b *testing.B) {
 	benchRoutes(b, githubHttpTreeMux, githubAPI)
 }
+
+func BenchmarkBunrouter_GithubAll(b *testing.B) {
+	benchRoutes(b, githubBunrouter, githubAPI)
+}
+
 func BenchmarkKocha_GithubAll(b *testing.B) {
 	benchRoutes(b, githubKocha, githubAPI)
 }
+
 func BenchmarkLARS_GithubAll(b *testing.B) {
 	benchRoutes(b, githubLARS, githubAPI)
 }
+
 func BenchmarkMacaron_GithubAll(b *testing.B) {
 	benchRoutes(b, githubMacaron, githubAPI)
 }
+
 func BenchmarkMartini_GithubAll(b *testing.B) {
 	benchRoutes(b, githubMartini, githubAPI)
 }
+
 func BenchmarkPat_GithubAll(b *testing.B) {
 	benchRoutes(b, githubPat, githubAPI)
 }
+
 func BenchmarkPossum_GithubAll(b *testing.B) {
 	benchRoutes(b, githubPossum, githubAPI)
 }
+
 func BenchmarkR2router_GithubAll(b *testing.B) {
 	benchRoutes(b, githubR2router, githubAPI)
 }
@@ -773,15 +874,19 @@ func BenchmarkR2router_GithubAll(b *testing.B) {
 func BenchmarkRivet_GithubAll(b *testing.B) {
 	benchRoutes(b, githubRivet, githubAPI)
 }
+
 func BenchmarkTango_GithubAll(b *testing.B) {
 	benchRoutes(b, githubTango, githubAPI)
 }
+
 func BenchmarkTigerTonic_GithubAll(b *testing.B) {
 	benchRoutes(b, githubTigerTonic, githubAPI)
 }
+
 func BenchmarkTraffic_GithubAll(b *testing.B) {
 	benchRoutes(b, githubTraffic, githubAPI)
 }
+
 func BenchmarkVulcan_GithubAll(b *testing.B) {
 	benchRoutes(b, githubVulcan, githubAPI)
 }

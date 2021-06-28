@@ -50,6 +50,7 @@ require (
 	github.com/tinylib/msgp v1.1.0 // indirect
 	github.com/typepress/rivet v1.1.1-0.20151208095308-d62b4fcaf6b9
 	github.com/unknwon/com v1.0.1 // indirect
+	github.com/uptrace/bunrouter v1.0.3
 	github.com/ursiform/bear v1.0.1
 	github.com/vanng822/r2router v0.0.0-20150523112421-1023140a4f30
 	github.com/vulcand/predicate v1.1.0 // indirect
